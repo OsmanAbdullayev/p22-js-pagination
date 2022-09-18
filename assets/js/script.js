@@ -1,113 +1,168 @@
 // SELECTORS
 
-const paginatedList = document.getElementById("paginated-list");
-const listItems = paginatedList.querySelectorAll("li");
-const paginationNumbers = document.getElementById("pagination-numbers");
-const nextButton = document.getElementById("next-button");
-const prevButton = document.getElementById("prev-button");
+// INITIALIZE THE API
 
-// VARIABLES
+fetch("https://rickandmortyapi.com/api/character/?page=i")
+	.then((response) => response.json())
+	.then((data) => {
+		const paginatedList = document.getElementById("paginated-list");
+		const paginationNumbers = document.getElementById("pagination-numbers");
+		const nextButton = document.getElementById("next-button");
+		const prevButton = document.getElementById("prev-button");
+		data.results.forEach((item) => {
+			const characterName = item.name;
+			const characterImage = item.image;
 
-const paginationLimit = 10;
-const pageCount = Math.ceil(listItems.length / paginationLimit);
-var currentPage;
+			var li = document.createElement("li");
+			var nameBox = document.createElement("div");
+			nameBox.className = "nameBox";
+			var imageBox = document.createElement("div");
+			imageBox.className = "imageBox";
+			li.appendChild(nameBox);
+			li.appendChild(imageBox);
+			var p = document.createElement("p");
+			p.innerHTML = characterName;
+			nameBox.appendChild(p);
+			var img = document.createElement("img");
+			img.setAttribute("src", characterImage);
+			imageBox.appendChild(img);
+			paginatedList.appendChild(li);
 
-// FUNCTIONS
-// creating a function that adds a page number (index) equal to input (index)
-const appendPageNumber = (index) => {
-    const pageNumber = document.createElement("button");
-    pageNumber.className = "pagination-number";
-    pageNumber.innerHTML = index;
-    pageNumber.setAttribute("page-index", index);
-    pageNumber.setAttribute("aria-label", "Page" + index);
-    paginationNumbers.appendChild(pageNumber);
-};
+			// console.log(paginatedList)
+		});
+		var listItems = document.querySelectorAll("li");
 
-// creating a function with a loop so that the index is iterated till the pageCount;
+		// VARIABLES
 
-const getPaginationNumbers = () => {
-    for (let i=1; i <= pageCount; i++) {
-        appendPageNumber(i);
-    }
-};
+		const paginationLimit = 5;
+		const pageCount = Math.ceil(listItems.length / paginationLimit);
+		var currentPage;
 
-const setCurrentPage = (pageNum) => {
-    currentPage = pageNum;
+		// FUNCTIONS
+		// creating a function that adds a page number (index) equal to input (index)
+		const appendPageNumber = (index) => {
+			const pageNumber = document.createElement("button");
+			pageNumber.className = "pagination-number";
+			pageNumber.innerHTML = index;
+			pageNumber.setAttribute("page-index", index);
+			pageNumber.setAttribute("aria-label", "Page" + index);
+			paginationNumbers.appendChild(pageNumber);
+		};
 
-    handleActivePageNumber();
-    handlePageButtonsStatus();
+		// creating a function with a loop so that the index is iterated till the pageCount;
 
-    const prevRange = (pageNum - 1) * paginationLimit;
-    const currRange = pageNum * paginationLimit;
+		const getPaginationNumbers = () => {
+			for (let i = 1; i <= pageCount; i++) {
+				appendPageNumber(i);
+			}
+		};
 
-    listItems.forEach((item, index) => {
-        item.classList.add("hidden");
-        if (index >= prevRange && index < currRange) {
-            item.classList.remove("hidden");
-        }
-    })
+		const setCurrentPage = (pageNum) => {
+			currentPage = pageNum;
 
-};
+			handleActivePageNumber();
+			handlePageButtonsStatus();
 
-// SETTING ACTIVE PAGE NUMBER
+			const prevRange = (pageNum - 1) * paginationLimit;
+			const currRange = pageNum * paginationLimit;
 
-const handleActivePageNumber = () => {
-    document.querySelectorAll(".pagination-number").forEach((button) => {
-        button.classList.remove("active");
+			// WORKING WITH API
+            
+            paginatedList.innerHTML = ("");
+            data.results.forEach((item, index) => {
+						
+						if (index >= prevRange && index < currRange) {
+							const characterName = item.name;
+							const characterImage = item.image;
 
-        const pageIndex = Number(button.getAttribute("page-index"));
-        if (pageIndex === currentPage) {
-            button.classList.add("active");
-        }
-    });
-};
+							var li = document.createElement("li");
+							var nameBox = document.createElement("div");
+							nameBox.className = "nameBox";
+							var imageBox = document.createElement("div");
+							imageBox.className = "imageBox";
+							li.appendChild(nameBox);
+							li.appendChild(imageBox);
+							var p = document.createElement("p");
+							p.innerHTML = characterName;
+							nameBox.appendChild(p);
+							var img = document.createElement("img");
+							img.setAttribute("src", characterImage);
+							imageBox.appendChild(img);
+							paginatedList.appendChild(li);
+						}
+					});
+                    console.log(paginatedList)
+				
 
-// DISABLING NEXT AND PREVIOUS ON THE LAST AND FIRST PAGES
+			// listItems.forEach((item, index) => {
+			// 	item.classList.add("hidden");
+			// 	if (index >= prevRange && index < currRange) {
+			// 		item.classList.remove("hidden");
+			// 	}
+			// });
+		};
 
-const disableButton = (button) => {
-    button.classList.add("disabled");
-    button.setAttribute("disabled", true);
-};
+		// SETTING ACTIVE PAGE NUMBER
 
-const enableButton = (button) => {
-    button.classList.remove("disabled");
-    button.removeAttribute("disabled");
-};
+		const handleActivePageNumber = () => {
+			document.querySelectorAll(".pagination-number").forEach((button) => {
+				button.classList.remove("active");
 
-const handlePageButtonsStatus = () => {
-    if (currentPage === 1) {
-        disableButton(prevButton);
-    } else {
-        enableButton(prevButton);
-    }
+				const pageIndex = Number(button.getAttribute("page-index"));
+				if (pageIndex === currentPage) {
+					button.classList.add("active");
+				}
+			});
+		};
 
-    if (pageCount === currentPage) {
-        disableButton(nextButton);
-    } else {
-        enableButton(nextButton);
-    }
-};
+		// DISABLING NEXT AND PREVIOUS ON THE LAST AND FIRST PAGES
 
-// EVENT LISTENERS
-document.addEventListener("DOMContentLoaded", () => {
-    getPaginationNumbers();
-    setCurrentPage(1);
+		const disableButton = (button) => {
+			button.classList.add("disabled");
+			button.setAttribute("disabled", true);
+		};
 
-    prevButton.addEventListener("click", () => {
-        setCurrentPage(currentPage - 1);
-    });
+		const enableButton = (button) => {
+			button.classList.remove("disabled");
+			button.removeAttribute("disabled");
+		};
 
-    nextButton.addEventListener("click", () => {
-        setCurrentPage(currentPage + 1);
-    });
+		const handlePageButtonsStatus = () => {
+			if (currentPage === 1) {
+				disableButton(prevButton);
+			} else {
+				enableButton(prevButton);
+			}
 
-    document.querySelectorAll(".pagination-number").forEach((button) => {
-        const pageIndex = Number(button.getAttribute("page-index"));
+			if (pageCount === currentPage) {
+				disableButton(nextButton);
+			} else {
+				enableButton(nextButton);
+			}
+		};
 
-        if (pageIndex) {
-            button.addEventListener("click", () => {
-                setCurrentPage(pageIndex);
+        
+            getPaginationNumbers();
+            setCurrentPage(1);
+    
+            prevButton.addEventListener("click", () => {
+                setCurrentPage(currentPage - 1);
             });
-        }
-    });
-});
+    
+            nextButton.addEventListener("click", () => {
+                setCurrentPage(currentPage + 1);
+            });
+    
+            document.querySelectorAll(".pagination-number").forEach((button) => {
+                const pageIndex = Number(button.getAttribute("page-index"));
+    
+                if (pageIndex) {
+                    button.addEventListener("click", () => {
+                        setCurrentPage(pageIndex);
+                    });
+                }
+            });
+        
+		// EVENT LISTENERS
+	});
+    

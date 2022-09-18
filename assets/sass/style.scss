@@ -4,6 +4,7 @@
 
 
 body {
+    height: 100vh;
     font-family: 'Inter', sans-serif;
     line-height: 1.7;
     font-size: 1.1rem;
@@ -12,7 +13,7 @@ body {
     background: #e6f3f8;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
   
@@ -31,6 +32,7 @@ body {
   }
 
 .pagination-container {
+    margin-bottom: 1rem;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -63,7 +65,7 @@ body {
 }
 
 img {
-    height: 80px;
+    height: 120px;
     
     margin-left: 2rem;
     padding: 0;
@@ -72,11 +74,12 @@ img {
 
 ul {
     li {
+        min-width: 400px;
         margin: .5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 80px;
+        height: 120px;
         background-color: #0086b648;
         .nameBox {
             text-align: center;
@@ -90,7 +93,7 @@ ul {
         .imageBox {
             padding: 0;
             margin: 0;
-            height: 80px;
+            height: 120px;
         }
     }
 }

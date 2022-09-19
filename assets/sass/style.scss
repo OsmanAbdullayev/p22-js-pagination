@@ -73,6 +73,8 @@ body {
 ul {
     margin-top: 1rem;
     margin-bottom: 3rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -81,8 +83,8 @@ ul {
     li {
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius: 20px;
+        width: 100%;
         overflow: hidden;
-        min-width: 500px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -92,7 +94,6 @@ ul {
         &:hover {
             transition: 0.5s;
             scale: 1.2;
-            transform: translateX(50px);
             .imageBox {
                 img {
                     transition: 0.5s;

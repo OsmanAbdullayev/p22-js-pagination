@@ -3,6 +3,8 @@
 @import "header";
 
 
+
+
 body {
     height: 100vh;
     font-family: 'Inter', sans-serif;
@@ -13,10 +15,12 @@ body {
     background: #e6f3f8;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
-  
+
+
   main {
     position: relative;
     padding: 1rem 1rem 3rem;
@@ -67,20 +71,42 @@ body {
 
 
 ul {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
     li {
-        min-width: 400px;
-        margin: .5rem;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 20px;
+        overflow: hidden;
+        min-width: 500px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 80vh;
-        background-color: #0086b648;
+        height: 60vh;
+        background-color: #0086b668;
+        
+        &:hover {
+            transition: 0.5s;
+            scale: 1.2;
+            transform: translateX(50px);
+            .imageBox {
+                img {
+                    transition: 0.5s;
+                }
+            }
+        }
         .nameBox {
             text-align: center;
             flex: 1;
             padding: 1rem;
             p {
                 margin: 0;
+                color: white;
+                font-size: 1.2rem;
             }
         }
 
@@ -97,5 +123,7 @@ ul {
             
             }
         }
+
+        
     }
 }

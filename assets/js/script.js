@@ -35,7 +35,7 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 		// VARIABLES
 		
 		
-		const paginationLimit = 4;
+		const paginationLimit = 5;
 		const pageCount = Math.ceil(listItems.length / paginationLimit);
 		var currentPage;
 

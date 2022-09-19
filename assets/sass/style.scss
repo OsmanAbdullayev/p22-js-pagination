@@ -64,13 +64,7 @@ body {
     background: #0085b6;
 }
 
-img {
-    height: 120px;
-    
-    margin-left: 2rem;
-    padding: 0;
 
-}
 
 ul {
     li {
@@ -79,7 +73,7 @@ ul {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 120px;
+        height: 80vh;
         background-color: #0086b648;
         .nameBox {
             text-align: center;
@@ -93,7 +87,15 @@ ul {
         .imageBox {
             padding: 0;
             margin: 0;
-            height: 120px;
+            height: 100%;
+
+            img {
+                height: 100%;
+                
+                margin-left: 2rem;
+                padding: 0;
+            
+            }
         }
     }
 }

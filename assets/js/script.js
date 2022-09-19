@@ -27,14 +27,15 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 			img.setAttribute("src", characterImage);
 			imageBox.appendChild(img);
 			paginatedList.appendChild(li);
-
+			
 			// console.log(paginatedList)
 		});
 		var listItems = document.querySelectorAll("li");
-
+		
 		// VARIABLES
-
-		const paginationLimit = 5;
+		
+		
+		const paginationLimit = 4;
 		const pageCount = Math.ceil(listItems.length / paginationLimit);
 		var currentPage;
 
@@ -67,32 +68,32 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 			const currRange = pageNum * paginationLimit;
 
 			// WORKING WITH API
-            
-            paginatedList.innerHTML = ("");
-            data.results.forEach((item, index) => {
-						
-						if (index >= prevRange && index < currRange) {
-							const characterName = item.name;
-							const characterImage = item.image;
 
-							var li = document.createElement("li");
-							var nameBox = document.createElement("div");
-							nameBox.className = "nameBox";
-							var imageBox = document.createElement("div");
-							imageBox.className = "imageBox";
-							li.appendChild(nameBox);
-							li.appendChild(imageBox);
-							var p = document.createElement("p");
-							p.innerHTML = characterName;
-							nameBox.appendChild(p);
-							var img = document.createElement("img");
-							img.setAttribute("src", characterImage);
-							imageBox.appendChild(img);
-							paginatedList.appendChild(li);
-						}
-					});
-                    console.log(paginatedList)
-				
+			paginatedList.innerHTML = "";
+			data.results.forEach((item, index) => {
+				if (index >= prevRange && index < currRange) {
+					const characterName = item.name;
+					const characterImage = item.image;
+
+					var li = document.createElement("li");
+					var nameBox = document.createElement("div");
+					nameBox.className = "nameBox";
+					var imageBox = document.createElement("div");
+					imageBox.className = "imageBox";
+					li.appendChild(nameBox);
+					li.appendChild(imageBox);
+					var p = document.createElement("p");
+					p.innerHTML = characterName;
+					nameBox.appendChild(p);
+					var img = document.createElement("img");
+					img.setAttribute("src", characterImage);
+					imageBox.appendChild(img);
+					paginatedList.appendChild(li);
+					li.style.height = (li.offsetHeight / paginationLimit) + 'px';
+					// console.log(li.offsetHeight)
+				}
+			});
+			console.log(paginatedList);
 
 			// listItems.forEach((item, index) => {
 			// 	item.classList.add("hidden");
@@ -141,28 +142,26 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 			}
 		};
 
-        
-            getPaginationNumbers();
-            setCurrentPage(1);
-    
-            prevButton.addEventListener("click", () => {
-                setCurrentPage(currentPage - 1);
-            });
-    
-            nextButton.addEventListener("click", () => {
-                setCurrentPage(currentPage + 1);
-            });
-    
-            document.querySelectorAll(".pagination-number").forEach((button) => {
-                const pageIndex = Number(button.getAttribute("page-index"));
-    
-                if (pageIndex) {
-                    button.addEventListener("click", () => {
-                        setCurrentPage(pageIndex);
-                    });
-                }
-            });
-        
+		getPaginationNumbers();
+		setCurrentPage(1);
+
+		prevButton.addEventListener("click", () => {
+			setCurrentPage(currentPage - 1);
+		});
+
+		nextButton.addEventListener("click", () => {
+			setCurrentPage(currentPage + 1);
+		});
+
+		document.querySelectorAll(".pagination-number").forEach((button) => {
+			const pageIndex = Number(button.getAttribute("page-index"));
+
+			if (pageIndex) {
+				button.addEventListener("click", () => {
+					setCurrentPage(pageIndex);
+				});
+			}
+		});
+
 		// EVENT LISTENERS
 	});
-    

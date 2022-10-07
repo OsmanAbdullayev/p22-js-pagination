@@ -35,7 +35,7 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 		// VARIABLES
 		
 		
-		const paginationLimit = 5;
+		const paginationLimit = 10;
 		const pageCount = Math.ceil(listItems.length / paginationLimit);
 		var currentPage;
 
@@ -150,8 +150,8 @@ fetch("https://rickandmortyapi.com/api/character/?page=i")
 		});
 
 		nextButton.addEventListener("click", () => {
-			setCurrentPage(currentPage + 1);
-		});
+		setCurrentPage(currentPage + 1);
+	});
 
 		document.querySelectorAll(".pagination-number").forEach((button) => {
 			const pageIndex = Number(button.getAttribute("page-index"));
